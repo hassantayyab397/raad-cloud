@@ -1,0 +1,550 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RAAD.CLOUD Test Build</title><style>:root{--bg:#f4f7fc;--s:#fff;--s2:#eaf0fa;--t:#0a1530;--m:#5a6b8c;--b:#dde5f2;--p:#2563eb;--c:#0ea5c6;--ok:#15803d;--wa:#b45309;--er:#dc2626;--r:12px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+[data-theme=dark]{--bg:#060c1d;--s:#0c1630;--s2:#12203f;--t:#e8eeff;--m:#8d9fc6;--b:#1c2b52;--p:#3b82f6;--c:#22d3ee;--ok:#4ade80;--wa:#fbbf24;--er:#f87171}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);line-height:1.55}
+a{color:var(--p)}h1,h2,h3{letter-spacing:-.02em;line-height:1.2;margin:0 0 .5em}
+button,input,select,textarea{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+input,select,textarea,.ce{width:100%;padding:.6rem .75rem;border:1px solid var(--b);border-radius:8px;background:var(--s)}
+label{display:block;font-size:.8rem;color:var(--m);margin:.8rem 0 .25rem}
+.btn{display:inline-flex;gap:.4rem;align-items:center;padding:.55rem .95rem;border-radius:8px;border:1px solid var(--b);background:var(--s);cursor:pointer;text-decoration:none;color:var(--t);font-weight:600;font-size:.88rem;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--p)}.btn.pri{background:var(--p);border-color:var(--p);color:#fff}.btn.dng{color:var(--er)}.btn.sm{padding:.3rem .6rem;font-size:.8rem}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;letter-spacing:-.03em;color:var(--t);text-decoration:none}.logo svg{width:30px;height:30px}.logo small{display:block;font-weight:500;font-size:.68rem;color:var(--m);letter-spacing:0}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:var(--s);border-right:1px solid var(--b);padding:1rem;position:sticky;top:0;height:100vh;overflow:auto}
+.side nav{margin-top:1.2rem;display:grid;gap:2px}.side nav a{padding:.5rem .7rem;border-radius:8px;color:var(--m);text-decoration:none;font-size:.9rem;font-weight:500}
+.side nav a:hover{background:var(--s2);color:var(--t)}.side nav a.on{background:var(--p);color:#fff}
+.top{display:flex;gap:.6rem;align-items:center;padding:.8rem 1.5rem;border-bottom:1px solid var(--b);background:var(--s);position:sticky;top:0;z-index:5}.top .sp{flex:1}
+.main{padding:1.5rem;max-width:1200px;width:100%}.burger{display:none}
+.card{background:var(--s);border:1px solid var(--b);border-radius:var(--r);padding:1.1rem}.card h3{font-size:1rem}
+.grid{display:grid;gap:1rem}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.stat b{display:block;font-size:1.9rem;letter-spacing:-.03em}.stat span{color:var(--m);font-size:.82rem}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}.row.sb{justify-content:space-between}.mt{margin-top:1rem}.mut{color:var(--m);font-size:.85rem}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:.6rem .5rem;border-bottom:1px solid var(--b);vertical-align:middle}th{color:var(--m);font-weight:600;font-size:.78rem}
+.badge{padding:.1rem .5rem;border-radius:99px;font-size:.72rem;font-weight:700;background:var(--s2);color:var(--m)}.badge.published{color:var(--ok)}.badge.scheduled{color:var(--wa)}
+.banner{padding:.6rem .9rem;border-radius:8px;border:1px solid var(--wa);color:var(--wa);font-size:.85rem;margin-bottom:1rem}
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--m)}.empty b{display:block;color:var(--t);font-size:1.05rem;margin-bottom:.3rem}
+.chart{width:100%;height:auto}.bar{height:8px;border-radius:4px;background:var(--s2);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--c))}
+.ed{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:1rem}.tb{display:flex;gap:4px;flex-wrap:wrap;margin:.6rem 0}.tb button{padding:.3rem .6rem;border:1px solid var(--b);border-radius:6px;background:var(--s);cursor:pointer;font-weight:600}
+.ce{min-height:340px;font-family:Georgia,serif;line-height:1.7}.ce:focus{outline:2px solid var(--c)}
+.chk{list-style:none;padding:0;margin:0;font-size:.84rem}.chk li{padding:.15rem 0;color:var(--m)}.chk li.y{color:var(--ok)}.chk li:before{content:"○ "}.chk li.y:before{content:"✓ "}
+.prose{font-family:Georgia,serif;font-size:1.1rem;line-height:1.8;max-width:70ch}.prose img{max-width:100%;border-radius:10px}.prose blockquote{border-left:3px solid var(--c);margin-left:0;padding-left:1rem;color:var(--m)}.prose h1,.prose h2,.prose h3{font-family:system-ui,sans-serif;margin-top:1.6em}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;background:var(--t);color:var(--bg);padding:.7rem 1rem;border-radius:8px;z-index:50;font-size:.9rem}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem}.nav{background:var(--s);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:5}.nav .wrap{display:flex;align-items:center;gap:1rem;height:64px}.nav .links{display:flex;gap:1rem;flex:1;flex-wrap:wrap}.nav .links a{color:var(--m);text-decoration:none;font-weight:500;font-size:.92rem}.nav input{width:180px}
+.hero{padding:4.5rem 0 3rem;background:linear-gradient(180deg,var(--s2),var(--bg))}.hero h1{font-size:clamp(2rem,5vw,3.4rem);max-width:18ch}.hero p{color:var(--m);max-width:56ch;font-size:1.1rem}
+.sec{padding:2rem 0}.sec>.wrap>h2{font-size:1.4rem}.pc{display:flex;flex-direction:column;background:var(--s);border:1px solid var(--b);border-radius:var(--r);overflow:hidden;text-decoration:none;color:var(--t);transition:border-color .15s}.pc:hover{border-color:var(--p)}
+.ph{aspect-ratio:16/9;display:grid;place-items:center;font-size:2.4rem;font-weight:800;color:#fff;background:linear-gradient(135deg,hsl(var(--h) 70% 38%),hsl(calc(var(--h) + 40) 80% 45%))}.ph img{width:100%;height:100%;object-fit:cover}.pb{padding:1rem}.pb h3{font-size:1.05rem}.pb p{color:var(--m);font-size:.9rem;margin:.3rem 0}
+.chip{display:inline-block;padding:.35rem .8rem;border:1px solid var(--b);border-radius:99px;text-decoration:none;color:var(--t);font-size:.88rem;background:var(--s)}.chip:hover{border-color:var(--p)}.tag{color:var(--c);font-size:.78rem;font-weight:700}
+.nl{background:var(--s2);border-radius:var(--r);padding:2rem;margin:2rem 0}.nl form{display:flex;gap:.5rem;max-width:460px}
+footer{border-top:1px solid var(--b);padding:2rem 0;margin-top:2rem;color:var(--m);font-size:.9rem}footer .wrap{display:flex;gap:2rem;flex-wrap:wrap;justify-content:space-between}footer a{color:var(--m);display:block}
+.crumb{font-size:.84rem;color:var(--m);margin:1.5rem 0}.crumb a{color:var(--m)}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:fixed;left:0;z-index:20;width:260px;transform:translateX(-100%);transition:transform .2s}.side.open{transform:none}.burger{display:inline-flex}.ed{grid-template-columns:1fr}.main{padding:1rem}.nav .wrap{flex-wrap:wrap;height:auto;padding:.7rem 1.25rem}.nav input{width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.tb2{background:var(--s2);border-bottom:1px solid var(--b);font-size:.8rem;color:var(--m)}.tb2 .wrap{display:flex;gap:1rem;align-items:center;justify-content:space-between;min-height:36px;flex-wrap:wrap}.tb2 a,.tb2 button{color:var(--m);background:none;border:0;cursor:pointer;text-decoration:none;font-size:.8rem}.tb2 .r{display:flex;gap:.9rem}
+.mn{list-style:none;margin:0;padding:0;display:flex;gap:.2rem;flex:1;flex-wrap:wrap}.mn>li{position:relative}.mn a{display:block;padding:.5rem .7rem;color:var(--t);text-decoration:none;font-weight:600;font-size:.9rem;border-radius:8px}.mn a:hover{background:var(--s2)}
+.mn ul{list-style:none;margin:0;padding:.4rem;position:absolute;top:100%;left:0;min-width:200px;background:var(--s);border:1px solid var(--b);border-radius:10px;display:none;box-shadow:0 10px 30px #0003}.mn li:hover>ul,.mn li:focus-within>ul{display:block}.mn ul a{font-weight:500}
+.nav .bg{display:none}.pt{font-size:1.1rem;color:var(--m);font-weight:500;margin:1.5rem 0 0}
+.sh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--p);margin-bottom:1rem}.sh h2{margin:0;padding-bottom:.4rem;font-size:1.25rem}.sh a{font-size:.8rem;font-weight:700;text-decoration:none}
+.seot{max-width:80ch}.seot p{color:var(--m)}.cp{margin-top:1rem;font-size:.8rem}
+@media(max-width:900px){.nav .bg{display:inline-flex}.mn{display:none;width:100%;flex-direction:column;order:5}.mn.open{display:flex}.mn ul{position:static;display:block;border:0;box-shadow:none;padding-left:1rem}}
+
+/* ---- animations ---- */
+html{scroll-behavior:smooth}html.tt *{transition:background-color .35s,color .35s,border-color .35s!important}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1),border-color .15s,box-shadow .25s;transition-delay:var(--d,0s)}.rv.in{opacity:1;transform:none}
+.pc.rv.in:hover{transform:translateY(-6px);box-shadow:0 16px 34px #0004;transition-delay:0s}
+.ph{overflow:hidden;background-size:220% 220%;animation:shift 9s ease-in-out infinite}.ph img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}.pc:hover .ph img{transform:scale(1.08)}.ph{transition:transform .3s}.pc:hover .ph{background-position:100% 50%}
+@keyframes shift{50%{background-position:100% 50%}}
+.pg{animation:pg .5s cubic-bezier(.2,.7,.2,1) both}@keyframes pg{from{opacity:0;transform:translateY(12px)}}
+.prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--p),var(--c));z-index:99;transition:width .1s linear}
+.up{position:fixed;right:1rem;bottom:1rem;z-index:30;border:1px solid var(--b);background:var(--s);color:var(--t);border-radius:99px;padding:.5rem .9rem;cursor:pointer;font-weight:600;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .3s,transform .3s}.up.show{opacity:1;transform:none;pointer-events:auto}
+.nav{transition:box-shadow .3s}.nav.sc{box-shadow:0 8px 24px #0003}
+.mn ul{display:block;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}.mn li:hover>ul,.mn li:focus-within>ul{opacity:1;visibility:visible;transform:none}
+.btn:active{transform:scale(.97)}.btn.pri{position:relative;overflow:hidden}.btn.pri:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#fff5 50%,transparent 70%);transform:translateX(-130%);transition:transform .7s}.btn.pri:hover:after{transform:translateX(130%)}
+.logo svg{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}.logo:hover svg{transform:rotate(-8deg) scale(1.1)}
+.chip{transition:transform .2s,border-color .15s}.chip:hover{transform:translateY(-2px)}
+.orbs{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}.orbs i{position:absolute;width:42vw;height:42vw;border-radius:50%;filter:blur(90px);opacity:.16;background:var(--p);top:-12vw;left:-8vw;animation:fl 22s ease-in-out infinite alternate}.orbs i+i{background:var(--c);top:auto;left:auto;right:-10vw;bottom:-14vw;animation-duration:28s}@keyframes fl{to{transform:translate(8vw,6vw) scale(1.15)}}
+.main .card{animation:pg .55s cubic-bezier(.2,.7,.2,1) both}
+.toast{animation:ti .35s cubic-bezier(.2,.7,.2,1)}@keyframes ti{from{opacity:0;transform:translateY(16px)}}
+.chart rect{transform-box:fill-box;transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*70ms)}@keyframes grow{from{transform:scaleY(0)}}
+.chart polyline{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.6s ease forwards}@keyframes draw{to{stroke-dashoffset:0}}
+.bar i{transform-origin:left;animation:gx 1.1s cubic-bezier(.2,.7,.2,1) both}@keyframes gx{from{transform:scaleX(0)}}
+.side nav a{transition:background .2s,color .2s,transform .2s}.side nav a:hover{transform:translateX(3px)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.chart polyline{stroke-dashoffset:0}}
+</style></head><body>
+<script>window.RAAD_SEED={
+ "settings": {
+  "siteName": "RAAD.CLOUD",
+  "url": "https://YOUR-USERNAME.github.io/YOUR-REPO",
+  "description": "Guides on AI, online tools, SEO and building a business on the web.",
+  "author": "Tayyab Hassan",
+  "email": "hello@example.com",
+  "bio": "Writer and builder behind RAAD.CLOUD.",
+  "social": {
+   "linkedin": "",
+   "youtube": "",
+   "facebook": "",
+   "x": ""
+  }
+ },
+ "menu": [
+  {
+   "label": "About",
+   "href": "#/page/about",
+   "children": [
+    {
+     "label": "Contact",
+     "href": "#/page/contact"
+    }
+   ]
+  },
+  {
+   "label": "AI & Technology",
+   "href": "#/category/ai-and-technology",
+   "children": [
+    {
+     "label": "AI Tools",
+     "href": "#/category/artificial-intelligence-tools"
+    },
+    {
+     "label": "Technology Guides",
+     "href": "#/category/technology-guides"
+    }
+   ]
+  },
+  {
+   "label": "Online Tools",
+   "href": "#/category/online-tools"
+  },
+  {
+   "label": "SEO & Blogging",
+   "href": "#/category/seo-and-blogging",
+   "children": [
+    {
+     "label": "Digital Marketing",
+     "href": "#/category/digital-marketing"
+    }
+   ]
+  },
+  {
+   "label": "Business",
+   "href": "#/category/online-business",
+   "children": [
+    {
+     "label": "Internet & Web",
+     "href": "#/category/internet-and-web"
+    }
+   ]
+  },
+  {
+   "label": "Latest News",
+   "href": "#/news"
+  },
+  {
+   "label": "Latest Blog",
+   "href": "#/blog"
+  }
+ ],
+ "pages": {
+  "about": {
+   "title": "About Us",
+   "content": "<p>RAAD.CLOUD publishes practical guides on AI, online tools, SEO and online business, written by Tayyab Hassan.</p>"
+  },
+  "contact": {
+   "title": "Contact Us",
+   "content": "<p>Questions or ideas? Email the address listed in the site settings.</p>"
+  },
+  "privacy": {
+   "title": "Privacy Policy",
+   "content": "<p>This site is static. The theme preference and newsletter form entries are stored only in your own browser. Replace this text with a policy matching any analytics or email service you connect.</p>"
+  },
+  "disclaimer": {
+   "title": "Disclaimer",
+   "content": "<p>Content is for general information only and is not professional, legal or financial advice.</p>"
+  }
+ },
+ "articles": [
+  {
+   "id": "a1",
+   "title": "How to Choose AI Tools for Your Workflow",
+   "slug": "how-to-choose-ai-tools",
+   "excerpt": "A simple checklist for picking AI tools you will actually keep using.",
+   "content": "<p>Most people try too many AI tools and keep none. Start with one repetitive task, such as drafting outlines or summarising notes, and test two tools against it.</p><h2>Judge by output, not hype</h2><p>Run the same prompt in each tool, compare results, and check pricing before you commit. Read our <a href=\"#/post/seo-basics-for-new-blogs\">SEO basics for new blogs</a> if you plan to use AI for writing.</p><blockquote>Pick the tool that saves you time on a real task this week.</blockquote>",
+   "category": "Artificial Intelligence Tools",
+   "tags": [
+    "ai",
+    "productivity"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-10-02T09:00:00.000Z",
+   "publishAt": "",
+   "views": 420,
+   "seoTitle": "How to Choose AI Tools for Your Workflow",
+   "metaDesc": "A simple checklist for choosing AI tools: start from one task, compare outputs side by side, and check pricing before committing to any tool.",
+   "keyword": "ai tools",
+   "og": "",
+   "featured": true
+  },
+  {
+   "id": "a2",
+   "title": "SEO Basics for New Blogs",
+   "slug": "seo-basics-for-new-blogs",
+   "excerpt": "Titles, descriptions, slugs and internal links: the essentials in plain language.",
+   "content": "<p>Search engines need to understand what each page is about. Give every article a clear title, a short descriptive URL and a meta description written for humans.</p><h2>Link your own articles</h2><p>Internal links help readers and crawlers find related content. See <a href=\"#/post/how-to-choose-ai-tools\">how to choose AI tools</a> for an example topic cluster.</p><ul><li>One focus keyword per article</li><li>Alt text on every image</li><li>Short, readable slugs</li></ul>",
+   "category": "SEO & Blogging",
+   "tags": [
+    "seo",
+    "blogging"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-10-20T09:00:00.000Z",
+   "publishAt": "",
+   "views": 690,
+   "seoTitle": "SEO Basics for New Blogs: A Plain Guide",
+   "metaDesc": "Learn SEO basics for a new blog: writing titles, meta descriptions, short slugs and internal links so search engines understand every article you publish.",
+   "keyword": "seo basics",
+   "og": "",
+   "featured": true
+  },
+  {
+   "id": "a3",
+   "title": "Starting an Online Business with a Static Website",
+   "slug": "online-business-static-website",
+   "excerpt": "Why a free static site is a solid first step and what to add later.",
+   "content": "<p>A static site is fast, cheap and easy to host. It is a good place to test an idea before paying for a backend.</p><h2>What to add later</h2><p>Add a newsletter provider, analytics and a CMS once readers justify the effort.</p>",
+   "category": "Online Business",
+   "tags": [
+    "business",
+    "hosting"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-05T09:00:00.000Z",
+   "publishAt": "",
+   "views": 310,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a5",
+   "title": "AI Assistants Are Getting Better at Multi-Step Tasks",
+   "slug": "ai-assistants-multi-step-tasks",
+   "excerpt": "What newer AI assistants can now handle, and where you still need to check their work.",
+   "content": "<p>What newer AI assistants can now handle, and where you still need to check their work. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "AI & Technology",
+   "tags": [
+    "ai",
+    "news"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-13T09:00:00.000Z",
+   "publishAt": "",
+   "views": 310,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a6",
+   "title": "Search Engines Add More AI Answers: What Site Owners Should Do",
+   "slug": "search-ai-answers-site-owners",
+   "excerpt": "AI summaries in search change how readers find articles. Here is a calm response plan.",
+   "content": "<p>AI summaries in search change how readers find articles. Here is a calm response plan. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "AI & Technology",
+   "tags": [
+    "search",
+    "seo"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-12T09:00:00.000Z",
+   "publishAt": "",
+   "views": 280,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a7",
+   "title": "A Beginner's Guide to Browser-Based Image Tools",
+   "slug": "browser-image-tools-guide",
+   "excerpt": "Resize, compress and convert images without installing anything.",
+   "content": "<p>Resize, compress and convert images without installing anything. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "Online Tools",
+   "tags": [
+    "tools",
+    "images"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-11T09:00:00.000Z",
+   "publishAt": "",
+   "views": 190,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a8",
+   "title": "Email Outages: How to Keep Working When Mail Goes Down",
+   "slug": "email-outage-keep-working",
+   "excerpt": "A short checklist for freelancers and small teams when email stops working.",
+   "content": "<p>A short checklist for freelancers and small teams when email stops working. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "Internet & Web",
+   "tags": [
+    "internet",
+    "productivity"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-10T09:00:00.000Z",
+   "publishAt": "",
+   "views": 150,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a9",
+   "title": "Content Calendars That Small Blogs Can Actually Keep",
+   "slug": "content-calendar-small-blogs",
+   "excerpt": "Plan four weeks at a time and publish on a rhythm you can sustain.",
+   "content": "<p>Plan four weeks at a time and publish on a rhythm you can sustain. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "Digital Marketing",
+   "tags": [
+    "marketing",
+    "blogging"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-08T09:00:00.000Z",
+   "publishAt": "",
+   "views": 240,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a10",
+   "title": "Bootstrapping or a Loan: Choosing How to Fund Your Online Business",
+   "slug": "bootstrapping-or-loan",
+   "excerpt": "Compare the trade-offs before you borrow money or spend your savings.",
+   "content": "<p>Compare the trade-offs before you borrow money or spend your savings. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "Online Business",
+   "tags": [
+    "business",
+    "finance"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-03T09:00:00.000Z",
+   "publishAt": "",
+   "views": 205,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a11",
+   "title": "Setting Up Your First Domain and DNS Without Panic",
+   "slug": "first-domain-dns-setup",
+   "excerpt": "Plain steps for pointing a domain at a free static host.",
+   "content": "<p>Plain steps for pointing a domain at a free static host. This sample article shows how a published post looks on the blog; replace it with your own writing in the dashboard.</p><h2>Key points</h2><p>Keep each section short, link to related guides, and add alt text to every image so the article is useful to readers and search engines.</p>",
+   "category": "Technology Guides",
+   "tags": [
+    "domains",
+    "hosting"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "published",
+   "date": "2026-11-02T09:00:00.000Z",
+   "publishAt": "",
+   "views": 175,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  },
+  {
+   "id": "a4",
+   "title": "Free Online Tools Worth Bookmarking",
+   "slug": "free-online-tools-worth-bookmarking",
+   "excerpt": "Work in progress.",
+   "content": "<p>Outline coming soon.</p>",
+   "category": "Online Tools",
+   "tags": [
+    "tools"
+   ],
+   "image": "",
+   "alt": "",
+   "status": "draft",
+   "date": "",
+   "publishAt": "",
+   "views": 0,
+   "seoTitle": "",
+   "metaDesc": "",
+   "keyword": "",
+   "og": ""
+  }
+ ]
+};</script><script>/* RAAD Cloud shared storage layer. Swap load/save/seed for a GitHub API or CMS adapter later. */
+const RC={K:'raad.cms.v1',T:'raad.theme',SUBS:'raad.subs',
+cats:["AI & Technology","Artificial Intelligence Tools","Online Tools","SEO & Blogging","Digital Marketing","Technology Guides","Internet & Web","Online Business"],
+slug:s=>String(s).toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70),
+esc:s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
+live:a=>a.status==='published'||(a.status==='scheduled'&&a.publishAt&&new Date(a.publishAt)<=new Date()),
+words:h=>String(h||'').replace(/<[^>]+>/g,' ').trim().split(/\s+/).filter(Boolean).length,
+logo:'<svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#2563eb"/><path d="M9 21a4 4 0 0 1 .6-7.9A6 6 0 0 1 21 12.5 4.3 4.3 0 0 1 22 21z" fill="none" stroke="#22d3ee" stroke-width="2.2" stroke-linejoin="round"/></svg>',
+theme(t){if(t)localStorage.setItem(this.T,t);document.documentElement.dataset.theme=localStorage.getItem(this.T)||'dark'},
+toggle(){document.documentElement.classList.add('tt');setTimeout(()=>document.documentElement.classList.remove('tt'),450);this.theme(document.documentElement.dataset.theme==='dark'?'light':'dark')},
+load(){try{return JSON.parse(localStorage.getItem(this.K))}catch(e){return null}},
+save(d){localStorage.setItem(this.K,JSON.stringify(d))},
+async seed(){const d=JSON.parse(JSON.stringify(window.RAAD_SEED));d.cats=d.cats||this.cats;d.media=d.media||[];return d},
+async init(base){let d=this.load();if(!d){d=await this.seed(base);this.save(d)}return d},
+async pub(base,local){return local?(this.load()||await this.seed(base)):this.seed(base)},
+subs(){try{return JSON.parse(localStorage.getItem(this.SUBS))||[]}catch(e){return[]}}};
+RC.theme();
+</script>
+<script type="text/plain" id="blogjs">(async()=>{
+const $=s=>document.querySelector(s),E=RC.esc,app=$('#app'),prev=new URLSearchParams(location.search).get('preview')==='local';
+let D;try{D=await RC.pub('./',prev)}catch(e){app.innerHTML='<div class="wrap empty"><b>Could not load articles</b>Serve this folder over HTTP (for example <code>python -m http.server</code>); browsers block fetch() on file:// pages.</div>';return}
+const S=D.settings,vis=a=>prev||RC.live(a),L=D.articles.filter(vis).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+const hue=c=>((RC.cats.indexOf(c)+1)*47)%360,dt=d=>d?new Date(d).toLocaleDateString('en',{year:'numeric',month:'short',day:'numeric'}):'Unpublished',cs=RC.slug,base=S.url.replace(/\/$/,'');
+const card=a=>`<a class="pc" href="#/post/${a.slug}"><div class="ph" style="--h:${hue(a.category)}">${a.image?`<img src="${E(a.image)}" alt="${E(a.alt)}" loading="lazy">`:E(a.category[0])}</div><div class="pb"><span class="tag">${E(a.category)}</span><h3>${E(a.title)}</h3><p>${E(a.excerpt)}</p><span class="mut">${dt(a.date)}, ${Math.max(1,Math.round(RC.words(a.content)/200))} min read</span></div></a>`;
+const grid=l=>l.length?`<div class="grid g3">${l.map(card).join('')}</div>`:'<div class="empty"><b>No articles yet</b>Check back soon.</div>';
+const sec=(t,b,v)=>`<section class="sec"><div class="wrap"><div class="sh"><h2>${t}</h2>${v?`<a href="${v}">VIEW ALL</a>`:''}</div>${b}</div></section>`;const NEWS=['AI & Technology','Artificial Intelligence Tools','Internet & Web','Technology Guides'],news=L.filter(a=>NEWS.includes(a.category)),blogs=L.filter(a=>!NEWS.includes(a.category));
+const meta=(n,v,p)=>{const k=p?'property':'name';let e=document.head.querySelector(`meta[${k}="${n}"]`);if(!e){e=document.createElement('meta');e.setAttribute(k,n);document.head.append(e)}e.content=v};
+function seo(title,desc,path,o={}){document.title=title;meta('description',desc);let l=document.head.querySelector('link[rel=canonical]');if(!l){l=document.createElement('link');l.rel='canonical';document.head.append(l)}const u=base+'/'+path;l.href=u;meta('og:title',title,1);meta('og:description',desc,1);meta('og:url',u,1);meta('og:type',o.type||'website',1);if(o.img)meta('og:image',o.img,1);let s=$('#ld');if(!s){s=document.createElement('script');s.id='ld';s.type='application/ld+json';document.head.append(s)}s.textContent=JSON.stringify(o.ld||{})}
+const so=S.social||{},sl={linkedin:'LinkedIn',youtube:'YouTube',facebook:'Facebook',x:'X'},sm=Object.keys(sl).filter(k=>so[k]).map(k=>`<a href="${E(so[k])}" target="_blank" rel="noopener">${sl[k]}</a>`).join('');
+const mi=m=>`<li><a href="${E(m.href)}">${E(m.label)}</a>${m.children?`<ul>${m.children.map(c=>`<li><a href="${E(c.href)}">${E(c.label)}</a></li>`).join('')}</ul>`:''}</li>`;
+document.querySelector('header.nav').insertAdjacentHTML('beforebegin',`<div class="tb2"><div class="wrap"><span>${E(S.description)}</span><span class="r">${sm}<a href="#/page/about">About</a><button id="th">Theme</button></span></div></div>`);
+$('#nav').innerHTML=`<a class="logo" href="#/">${RC.logo}<span>${E(S.siteName)}</span></a><button class="btn bg" id="bg" aria-label="Menu">Menu</button><ul class="mn" id="mn">${D.menu.map(mi).join('')}</ul><form id="sf"><input type="search" name="q" placeholder="Search" aria-label="Search articles"></form>`;
+$('#bg').onclick=()=>$('#mn').classList.toggle('open');
+$('#foot').innerHTML=`<div><a class="logo" href="#/">${RC.logo}<span>${E(S.siteName)}</span></a><p>${E(S.description)}</p><p class="cp">Copyright 2026 ${E(S.siteName)}. All rights reserved.</p></div><div><b>Company</b><a href="#/page/about">About Us</a><a href="#/page/contact">Contact Us</a><a href="#/page/privacy">Privacy Policy</a><a href="#/page/disclaimer">Disclaimer</a></div><div><b>Categories</b>${D.cats.map(c=>`<a href="#/category/${cs(c)}">${E(c)}</a>`).join('')}</div>`;
+$('#th').onclick=()=>RC.toggle();
+$('#sf').onsubmit=e=>{e.preventDefault();const q=e.target.q.value.trim();if(q)location.hash='#/search/'+encodeURIComponent(q)};
+document.addEventListener('submit',e=>{if(e.target.id!=='nl')return;e.preventDefault();const m=e.target.email.value.trim(),s=RC.subs();if(!s.find(x=>x.email===m))s.push({email:m,date:new Date().toISOString()});localStorage.setItem(RC.SUBS,JSON.stringify(s));e.target.reset();$('#nlm').textContent='Saved in this browser only. No email service is connected yet (see README).'});
+const nl=()=>`<div class="wrap"><div class="nl"><h2>Get new articles by email</h2><form id="nl"><input type="email" name="email" required placeholder="you@example.com" aria-label="Email"><button class="btn pri">Subscribe</button></form><p class="mut" id="nlm">Demo form: connect an email provider to collect real subscribers.</p></div></div>`;
+function route(){const h=location.hash.slice(2),i=h.indexOf('/'),k=i<0?h:h.slice(0,i),v=i<0?'':decodeURIComponent(h.slice(i+1));const bn=prev?'<div class="wrap"><div class="banner mt">Local preview: this shows data saved in your browser, including drafts. It is not what the public sees.</div></div>':'';let o='';
+if(k==='post'){const a=L.find(x=>x.slug===v);if(!a)o=nf();else{const rel=L.filter(x=>x.id!==a.id&&x.category===a.category).slice(0,3),u=base+'/#/post/'+a.slug;
+seo(a.seoTitle||a.title,a.metaDesc||a.excerpt,'#/post/'+a.slug,{type:'article',img:a.og||a.image,ld:{'@context':'https://schema.org','@graph':[{'@type':'Article',headline:a.title,description:a.metaDesc||a.excerpt,image:a.og||a.image||undefined,datePublished:a.date,author:{'@type':'Person',name:S.author},publisher:{'@type':'Organization',name:S.siteName},mainEntityOfPage:u},{'@type':'BreadcrumbList',itemListElement:[['Home',base],[a.category,base+'/#/category/'+cs(a.category)],[a.title,u]].map((x,n)=>({'@type':'ListItem',position:n+1,name:x[0],item:x[1]}))}]}});
+o=`<div class="wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="#/">Home</a> / <a href="#/category/${cs(a.category)}">${E(a.category)}</a> / ${E(a.title)}</nav><article><span class="tag">${E(a.category)}</span><h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">${E(a.title)}</h1><p class="mut">By ${E(S.author)}, ${dt(a.date)}</p>${a.image?`<img src="${E(a.image)}" alt="${E(a.alt)}" style="max-width:100%;border-radius:12px">`:''}<div class="prose">${a.content}</div><p>${a.tags.map(t=>`<a class="chip" href="#/search/${t}">#${E(t)}</a>`).join(' ')}</p></article></div>${rel.length?sec('Related articles',grid(rel)):''}`}}
+else if(k==='category'){const c=D.cats.find(x=>cs(x)===v);seo((c||'Category')+' | '+S.siteName,'Articles in '+(c||v),'#/category/'+v);o=`<div class="wrap"><nav class="crumb"><a href="#/">Home</a> / ${E(c||v)}</nav></div>`+sec(E(c||v),grid(L.filter(a=>cs(a.category)===v)))}
+else if(k==='search'){const q=v.toLowerCase(),r=L.filter(a=>(a.title+a.excerpt+a.tags.join(' ')+a.category+a.content.replace(/<[^>]+>/g,' ')).toLowerCase().includes(q));seo('Search: '+v,'Search results','#/search');o=sec(`${r.length} result${r.length==1?'':'s'} for "${E(v)}"`,r.length?grid(r):'<div class="empty"><b>No matches</b>Try a different keyword or browse a category.</div>')}
+else if(k==='page'&&D.pages[v]){const p=D.pages[v];seo(p.title+' | '+S.siteName,p.title,'#/page/'+v);o=`<div class="wrap"><nav class="crumb"><a href="#/">Home</a> / ${E(p.title)}</nav><h1>${E(p.title)}</h1><div class="prose">${p.content}</div></div>`}
+else if(k==='news'||k==='blog'){const l=k==='news'?news:blogs,t=k==='news'?'Latest News':'Latest Blog';seo(t+' | '+S.siteName,t,'#/'+k);o=`<div class="wrap"><nav class="crumb"><a href="#/">Home</a> / ${t}</nav></div>`+sec(t,grid(l))}
+else if(k===''){seo(S.siteName+' | Latest Technology News and Guides',S.description,'');
+o=`<div class="wrap"><h1 class="pt">${E(S.siteName)} | Latest Technology News and Guides</h1></div>${sec('Latest News',grid(news.slice(0,6)),'#/news')}${nl()}${sec('Latest Blog',grid(blogs.slice(0,6)),'#/blog')}${sec('Browse by category',`<p>${D.cats.map(c=>`<a class="chip" href="#/category/${cs(c)}">${E(c)} (${L.filter(a=>a.category===c).length})</a>`).join(' ')}</p>`)}<section class="sec"><div class="wrap seot"><h2>What ${E(S.siteName)} covers</h2><p>${E(S.siteName)} publishes practical guides on AI tools, online tools, SEO, digital marketing and online business. Every article aims to help you learn a skill, pick a tool or make a better decision.</p><h2>Start with one topic</h2><p>Pick a category above, read two or three guides in order, and apply what you learn before moving on. Use search to find a specific question.</p></div></section>`}
+else o=nf();
+app.innerHTML=bn+o+(k===''?'':nl());scrollTo(0,0);fx(k)}
+function nf(){seo('Not found | '+S.siteName,'Page not found','');return'<div class="wrap empty"><b>Page not found</b><a href="#/">Back to the homepage</a></div>'}
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.body.insertAdjacentHTML('afterbegin','<div class="orbs" aria-hidden="true"><i></i><i></i></div>');
+const bar=document.createElement('div');bar.className='prog';const up=document.createElement('button');up.className='up';up.textContent='Top';up.setAttribute('aria-label','Back to top');up.onclick=()=>scrollTo({top:0,behavior:RM?'auto':'smooth'});document.body.append(bar,up);
+addEventListener('scroll',()=>{const h=document.documentElement,y=scrollY;document.querySelector('header.nav').classList.toggle('sc',y>10);up.classList.toggle('show',y>600);bar.style.width=document.body.dataset.post?Math.min(100,y/Math.max(1,h.scrollHeight-innerHeight)*100)+'%':'0'},{passive:true});
+function fx(k){document.body.dataset.post=k==='post'?'1':'';bar.style.width='0';app.classList.remove('pg');void app.offsetWidth;app.classList.add('pg');app.querySelectorAll('.pc,.sh,.nl,.seot,.chip,.prose>*,article>h1').forEach((el,i)=>{el.classList.add('rv');el.style.setProperty('--d',(i%3)*90+'ms');RM?el.classList.add('in'):io.observe(el)})}
+addEventListener('hashchange',route);route();
+})();
+</script><script type="text/plain" id="adminjs">(async()=>{
+const $=(s,r=document)=>r.querySelector(s),E=RC.esc,V=$('#view');
+let D;try{D=await RC.init('../')}catch(e){V.innerHTML='<div class="empty"><b>Could not load data</b>Serve this folder over HTTP (for example <code>python -m http.server</code>); browsers block fetch() on file:// pages.</div>';return}
+$('#lg').innerHTML=RC.logo;
+const save=()=>RC.save(D),toast=m=>{const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2400)};
+const dl=(n,x,t='application/json')=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([x],{type:t}));a.download=n;a.click()};
+const fd=d=>d?new Date(d).toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'}):'-';
+const loc=i=>i?new Date(new Date(i)-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16):'';
+const NAV=[['overview','Overview'],['posts','All Posts'],['editor','Write New Article'],['categories','Categories'],['tags','Tags'],['media','Media Library'],['comments','Comments'],['analytics','Analytics'],['seo','SEO Manager'],['pages','Pages'],['menu','Navigation Menu'],['subs','Newsletter Subscribers'],['settings','Website Settings'],['profile','User Profile']];
+const demo=n=>Array.from({length:n},(_,i)=>Math.round(140+60*Math.sin(i/3.2)+(i*37)%29));
+const bars=(v,l,h=150)=>{const m=Math.max(...v,1),w=300/v.length;return`<svg viewBox="0 0 300 ${h}" class="chart" role="img">${v.map((x,i)=>{const b=x/m*(h-34);return`<rect style="--i:${i}" x="${i*w+w*.18}" y="${h-22-b}" width="${w*.64}" height="${b}" rx="3" fill="var(--p)"/><text x="${i*w+w/2}" y="${h-7}" text-anchor="middle" font-size="9" fill="var(--m)">${l[i]}</text>`}).join('')}</svg>`};
+const line=(v,h=150)=>{const m=Math.max(...v),n=Math.min(...v),p=v.map((x,i)=>`${i*300/(v.length-1)},${h-12-(x-n)/(m-n||1)*(h-30)}`).join(' ');return`<svg viewBox="0 0 300 ${h}" class="chart" role="img"><polyline pathLength="1" points="${p}" fill="none" stroke="var(--c)" stroke-width="2.5"/></svg>`};
+const hb=r=>r.map(([n,v,t])=>`<div class="mt"><div class="row sb mut"><span>${E(n)}</span><span>${t||v+'%'}</span></div><div class="bar"><i style="width:${Math.min(100,v)}%"></i></div></div>`).join('');
+const demoB='<div class="banner">Demo data: no analytics service is connected, so these figures are generated samples, not real traffic.</div>';
+const empty=(t,d,a='')=>`<div class="empty"><b>${t}</b>${d}<div class="mt">${a}</div></div>`;
+const seoItems=a=>{const t=a.seoTitle||a.title||'',m=a.metaDesc||'',k=(a.keyword||'').toLowerCase(),txt=(a.content||'').replace(/<[^>]+>/g,' '),p=((a.content||'').match(/<p[^>]*>([\s\S]*?)<\/p>/)||[])[1]||'';return[['Title is 30-60 characters',t.length>=30&&t.length<=60],['Meta description is 120-160 characters',m.length>=120&&m.length<=160],['Focus keyword is set',!!k],['Keyword is in the title',!!k&&t.toLowerCase().includes(k)],['Keyword is in the meta description',!!k&&m.toLowerCase().includes(k)],['Keyword is in the first paragraph',!!k&&p.toLowerCase().includes(k)],['At least 300 words',RC.words(txt)>=300],['Featured image has alt text',!!a.image&&!!a.alt],['Open Graph image is set',!!(a.og||a.image)],['Slug is short and clean',/^[a-z0-9-]{3,60}$/.test(a.slug||'')],['Has an internal link',/href="#\/post\//.test(a.content||'')]]};
+const score=a=>seoItems(a).filter(x=>x[1]).length;
+const exportData=all=>({settings:D.settings,menu:D.menu,pages:D.pages,articles:D.articles.filter(a=>all||RC.live(a)||a.status==='scheduled')});
+function go(){const[k,...r]=(location.hash.slice(2)||'overview').split('/'),id=decodeURIComponent(r.join('/'));const f=VIEWS[k]||VIEWS.overview,cur=VIEWS[k]?k:'overview';$('#nav').innerHTML=NAV.map(([x,l])=>`<a href="#/${x}" class="${x===cur?'on':''}">${l}</a>`).join('');$('#ttl').textContent=NAV.find(n=>n[0]===cur)[1];$('#side').classList.remove('open');V.innerHTML='';f(id);scrollTo(0,0);fxA()}
+const VIEWS={
+overview(){const A=D.articles,c=s=>A.filter(a=>a.status===s).length,views=A.reduce((s,a)=>s+(+a.views||0),0),rec=[...A].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0)).slice(0,5),mo=[...Array(6)].map((_,i)=>{const d=new Date();d.setMonth(d.getMonth()-5+i);return[d.toLocaleDateString('en',{month:'short'}),A.filter(a=>a.date&&new Date(a.date).getMonth()===d.getMonth()&&new Date(a.date).getFullYear()===d.getFullYear()).length]}),pub=A.filter(a=>a.status==='published'),avg=pub.length?Math.round(pub.reduce((s,a)=>s+score(a),0)/pub.length/11*100):0,
+hc=[['Site URL set',!/YOUR-/.test(D.settings.url)],['At least one published article',pub.length>0],['Published articles have meta descriptions',pub.every(a=>a.metaDesc)],['Images have alt text',A.every(a=>!a.image||a.alt)]];
+const st=(n,l)=>`<div class="card stat"><b>${n}</b><span>${l}</span></div>`;
+V.innerHTML=`<div class="row sb"><h2>Welcome back, ${E(D.settings.author)}</h2><div class="row"><a class="btn pri" href="#/editor">New article</a><button class="btn" data-a="exp-pub">Export JSON</button><button class="btn" data-a="imp">Import JSON</button><a class="btn" href="?preview=local" target="_blank" rel="noopener">Open blog preview</a></div></div>
+<div class="grid g4 mt">${st(A.length,'Total articles')}${st(c('published'),'Published')}${st(c('draft'),'Drafts')}${st(c('scheduled'),'Scheduled')}${st(views,'Total views (demo)')}${st((demo(30).reduce((a,b)=>a+b)),'Monthly visitors (demo)')}</div>
+<div class="grid g2 mt"><div class="card"><h3>Publishing activity</h3>${bars(mo.map(m=>m[1]),mo.map(m=>m[0]))}</div><div class="card"><h3>SEO performance</h3><b style="font-size:2rem">${avg}%</b><span class="mut"> average checklist score, published articles</span>${hb([['Checklist score',avg]])}</div>
+<div class="card"><h3>Recent articles</h3>${rec.length?`<table>${rec.map(a=>`<tr><td><a href="#/editor/${a.id}">${E(a.title)}</a></td><td><span class="badge ${a.status}">${a.status}</span></td></tr>`).join('')}</table>`:empty('No articles yet','Write your first one.','<a class="btn pri" href="#/editor">New article</a>')}</div>
+<div class="card"><h3>Website health</h3><ul class="chk">${hc.map(([l,y])=>`<li class="${y?'y':''}">${l}</li>`).join('')}</ul></div></div>`},
+posts(id=''){let q='',c=id.startsWith('c:')?id.slice(2):'',t=id.startsWith('t:')?id.slice(2):'',s='';
+V.innerHTML=`<div class="row sb"><h2>All posts</h2><div class="row"><a class="btn pri" href="#/editor">New article</a><button class="btn" data-a="exp-pub">Export for deployment</button><button class="btn" data-a="exp-all">Export full backup</button><button class="btn" data-a="imp">Import JSON</button></div></div><div class="row mt"><input id="q" placeholder="Search articles" style="max-width:240px"><select id="c" style="max-width:220px"><option value="">All categories</option>${D.cats.map(x=>`<option ${x===c?'selected':''}>${E(x)}</option>`).join('')}</select><select id="s" style="max-width:150px"><option value="">All statuses</option><option>published</option><option>draft</option><option>scheduled</option></select>${t?`<span class="badge">tag: ${E(t)}</span>`:''}</div><div class="card mt tw" id="tb"></div>`;
+const draw=()=>{const l=D.articles.filter(a=>(!q||(a.title+a.excerpt+a.tags.join(' ')).toLowerCase().includes(q))&&(!c||a.category===c)&&(!s||a.status===s)&&(!t||a.tags.includes(t))).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));$('#tb').innerHTML=l.length?`<table><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th></th></tr>${l.map(a=>`<tr><td><b>${E(a.title)}</b><div class="mut">/${E(a.slug)}</div></td><td>${E(a.category)}</td><td><span class="badge ${a.status}">${a.status}</span></td><td>${fd(a.date||a.publishAt)}</td><td class="row"><a class="btn sm" href="#/editor/${a.id}">Edit</a><a class="btn sm" target="_blank" rel="noopener" href="?preview=local#/post/${a.slug}">Preview</a><button class="btn sm dng" data-a="del" data-id="${a.id}">Delete</button></td></tr>`).join('')}</table>`:empty('No matching articles','Change the filters or write a new article.','<a class="btn pri" href="#/editor">New article</a>')};
+$('#q').oninput=e=>{q=e.target.value.toLowerCase();draw()};$('#c').onchange=e=>{c=e.target.value;draw()};$('#s').onchange=e=>{s=e.target.value;draw()};draw()},
+editor(id){const ex=D.articles.find(x=>x.id===id),a=ex?{...ex}:{id:'a'+Date.now().toString(36),title:'',slug:'',excerpt:'',content:'',category:D.cats[0],tags:[],image:'',alt:'',status:'draft',date:'',publishAt:'',views:0,seoTitle:'',metaDesc:'',keyword:'',og:''};let touched=!!a.slug;
+V.innerHTML=`<form id="f" class="ed" onsubmit="return false"><div><div class="row sb"><h2>${ex?'Edit article':'Write new article'}</h2><div class="row"><button type="button" class="btn" data-t="edit">Write</button><button type="button" class="btn" data-t="pv">Live preview</button></div></div>
+<div id="edit"><label>Title</label><input name="title" value="${E(a.title)}" placeholder="Article title"><label>URL slug</label><div class="row"><input name="slug" value="${E(a.slug)}" style="flex:1"><button type="button" class="btn" id="rs">Regenerate</button></div>
+<div class="tb">${[['h1','H1'],['h2','H2'],['h3','H3'],['bold','B'],['italic','I'],['underline','U'],['ul','List'],['ol','Numbered'],['quote','Quote'],['link','Link'],['img','Image URL']].map(([c,l])=>`<button type="button" data-c="${c}">${l}</button>`).join('')}</div><div class="ce" contenteditable="true" id="ce" aria-label="Article body">${a.content}</div>
+<label>Excerpt</label><textarea name="excerpt" rows="2">${E(a.excerpt)}</textarea></div><div class="card" id="pv" hidden></div></div>
+<aside class="grid" style="align-content:start"><div class="card"><h3>Publish</h3><span class="badge ${a.status}">${a.status}</span><div class="row mt"><button class="btn" data-s="draft">Save draft</button><button class="btn pri" data-s="published">Publish now</button></div><label>Schedule for</label><input type="datetime-local" name="publishAt" value="${loc(a.publishAt)}"><div class="mt"><button class="btn" data-s="scheduled">Schedule publication</button></div><p class="mut">Publishing saves to this browser only. To go live, export JSON and deploy (see README).</p></div>
+<div class="card"><h3>Organise</h3><label>Category</label><select name="category">${D.cats.map(x=>`<option ${x===a.category?'selected':''}>${E(x)}</option>`).join('')}</select><label>Tags (comma separated)</label><input name="tags" value="${E(a.tags.join(', '))}"><label>Featured image URL</label><input name="image" value="${E(a.image)}" placeholder="https://..."><label>Image alt text</label><input name="alt" value="${E(a.alt)}"></div>
+<div class="card"><h3>SEO</h3><label>SEO title</label><input name="seoTitle" value="${E(a.seoTitle)}"><label>Meta description</label><textarea name="metaDesc" rows="3">${E(a.metaDesc)}</textarea><label>Focus keyword</label><input name="keyword" value="${E(a.keyword)}"><label>Open Graph image URL</label><input name="og" value="${E(a.og)}"><h3 class="mt">Checklist</h3><ul class="chk" id="ck"></ul></div><div class="card"><h3>Internal link suggestions</h3><div id="sg"></div></div></aside></form>`;
+const f=$('#f'),g=n=>f.elements[n],ce=$('#ce');
+const read=()=>{a.title=g('title').value.trim();a.slug=RC.slug(g('slug').value||a.title);a.excerpt=g('excerpt').value;a.content=ce.innerHTML;a.category=g('category').value;a.tags=g('tags').value.split(',').map(RC.slug).filter(Boolean);a.image=g('image').value.trim();a.alt=g('alt').value;a.seoTitle=g('seoTitle').value;a.metaDesc=g('metaDesc').value;a.keyword=g('keyword').value;a.og=g('og').value.trim();a.publishAt=g('publishAt').value?new Date(g('publishAt').value).toISOString():''};
+const refresh=()=>{read();$('#ck').innerHTML=seoItems(a).map(([l,y])=>`<li class="${y?'y':''}">${l}</li>`).join('');const w=(a.title+' '+a.tags.join(' ')+' '+a.keyword).toLowerCase().split(/\W+/).filter(x=>x.length>3),s=D.articles.filter(x=>x.id!==a.id&&x.status!=='draft').map(x=>({x,n:(x.category===a.category?1:0)+w.filter(k=>(x.title+' '+x.tags.join(' ')).toLowerCase().includes(k)).length})).filter(o=>o.n>0).sort((p,q)=>q.n-p.n).slice(0,4);$('#sg').innerHTML=s.length?s.map(o=>`<div class="row sb mt"><span>${E(o.x.title)}</span><button type="button" class="btn sm" data-ins="${o.x.slug}">Insert</button></div>`).join(''):'<p class="mut">Add tags or a keyword to see related articles.</p>';if(!$('#pv').hidden)$('#pv').innerHTML=`<h1>${E(a.title||'Untitled')}</h1>${a.image?`<img src="${E(a.image)}" alt="${E(a.alt)}" style="max-width:100%">`:''}<div class="prose">${a.content}</div>`};
+f.oninput=e=>{if(e.target.name==='slug')touched=true;else if(e.target.name==='title'&&!touched)g('slug').value=RC.slug(g('title').value);refresh()};
+$('#rs').onclick=()=>{g('slug').value=RC.slug(g('title').value);touched=false;refresh()};
+f.onmousedown=e=>{if(e.target.dataset.c)e.preventDefault()};
+f.onclick=e=>{const d=e.target.dataset;if(d.t){$('#edit').hidden=d.t==='pv';$('#pv').hidden=d.t!=='pv';refresh()}
+if(d.c){ce.focus();const c=d.c,fb=t=>document.execCommand('formatBlock',false,t);if(/^h\d$/.test(c))fb(c);else if(c==='quote')fb('blockquote');else if(c==='ul')document.execCommand('insertUnorderedList');else if(c==='ol')document.execCommand('insertOrderedList');else if(c==='link'){const u=prompt('Link URL');if(u)document.execCommand('createLink',false,u)}else if(c==='img'){const u=prompt('Image URL');if(u){const t=prompt('Alt text (describe the image)')||'';document.execCommand('insertHTML',false,`<img src="${E(u)}" alt="${E(t)}">`)}}else document.execCommand(c);refresh()}
+if(d.ins){ce.insertAdjacentHTML('beforeend',`<p>Related: <a href="#/post/${d.ins}">${E(D.articles.find(x=>x.slug===d.ins).title)}</a></p>`);refresh();toast('Link added at the end of the article')}
+if(d.s){read();if(!a.title){toast('Add a title first');return}if(d.s==='scheduled'&&(!a.publishAt||new Date(a.publishAt)<=new Date())){toast('Choose a future date and time to schedule');return}
+if(D.articles.some(x=>x.id!==a.id&&x.slug===a.slug))a.slug+='-2';a.status=d.s;if(d.s==='scheduled')a.date=a.publishAt;else{a.publishAt='';if(d.s==='published'&&!a.date)a.date=new Date().toISOString()}
+const i=D.articles.findIndex(x=>x.id===a.id);i<0?D.articles.push(a):D.articles[i]=a;save();toast({draft:'Draft saved',published:'Published to the local prototype',scheduled:'Scheduled'}[d.s]);location.hash='#/posts'}};refresh()},
+categories(){V.innerHTML=`<h2>Categories</h2><div class="card tw"><table><tr><th>Name</th><th>Slug</th><th>Articles</th><th></th></tr>${D.cats.map(c=>`<tr><td>${E(c)}</td><td>${RC.slug(c)}</td><td>${D.articles.filter(a=>a.category===c).length}</td><td><a class="btn sm" href="#/posts/${encodeURIComponent('c:'+c)}">View posts</a></td></tr>`).join('')}</table></div><form class="card mt row" id="cf"><input name="n" placeholder="New category name" required style="max-width:300px"><button class="btn pri">Add category</button></form>`;$('#cf').onsubmit=e=>{e.preventDefault();const n=e.target.n.value.trim();if(D.cats.includes(n))return toast('That category already exists');D.cats.push(n);save();go()}},
+tags(){const m={};D.articles.forEach(a=>a.tags.forEach(t=>m[t]=(m[t]||0)+1));const k=Object.keys(m).sort();V.innerHTML=`<h2>Tags</h2><div class="card">${k.length?k.map(t=>`<a class="btn sm" href="#/posts/${encodeURIComponent('t:'+t)}">${E(t)} (${m[t]})</a> `).join(''):empty('No tags yet','Add tags in the article editor.')}</div>`},
+media(){const u=[...new Set([...D.media.map(m=>m.url),...D.articles.map(a=>a.image).filter(Boolean)])];V.innerHTML=`<h2>Media library</h2><p class="mut">Images are linked by URL; nothing is uploaded. Commit image files to your repo and paste their URLs here.</p><form class="card row" id="mf"><input name="u" type="url" placeholder="https://..." required style="max-width:380px"><input name="a" placeholder="Alt text" style="max-width:240px"><button class="btn pri">Add image</button></form><div class="grid g4 mt">${u.length?u.map(x=>`<div class="card"><img src="${E(x)}" alt="" style="width:100%;border-radius:8px"><div class="mut" style="word-break:break-all">${E(x)}</div><div class="row mt"><button class="btn sm" data-a="copy" data-id="${E(x)}">Copy URL</button><button class="btn sm dng" data-a="rm-media" data-id="${E(x)}">Remove</button></div></div>`).join(''):empty('No images yet','Add an image URL above.')}</div>`;$('#mf').onsubmit=e=>{e.preventDefault();D.media.push({url:e.target.u.value,alt:e.target.a.value});save();go()}},
+comments(){V.innerHTML=`<h2>Comments</h2><div class="card">${empty('Comments need a service','A static site cannot store comments. Connect a free service such as Giscus (GitHub Discussions) when you are ready; the article template is ready for an embed.')}</div>`},
+analytics(){const d=demo(30),mo=['Jun','Jul','Aug','Sep','Oct','Nov'],top=[...D.articles].sort((a,b)=>b.views-a.views).slice(0,4);V.innerHTML=`<h2>Analytics</h2>${demoB}<div class="grid g2"><div class="card"><h3>Daily visitors, last 30 days</h3>${line(d)}</div><div class="card"><h3>Page views by month</h3>${bars(demo(6).map(x=>x*3),mo)}</div><div class="card"><h3>Top articles</h3>${hb(top.map(a=>[a.title,Math.round(a.views/Math.max(...top.map(x=>x.views),1)*100),a.views+' views']))}</div><div class="card"><h3>Traffic sources</h3>${hb([['Search',58],['Direct',22],['Social',12],['Referral',8]])}</div><div class="card"><h3>Search traffic</h3>${hb([['Organic search',58],['Branded search',14]])}</div><div class="card"><h3>Devices</h3>${hb([['Mobile',61],['Desktop',33],['Tablet',6]])}</div></div>`},
+seo(){V.innerHTML=`<h2>SEO manager</h2><div class="card tw"><table><tr><th>Article</th><th>Score</th><th></th></tr>${D.articles.map(a=>`<tr><td>${E(a.title)}</td><td>${score(a)}/11</td><td><a class="btn sm" href="#/editor/${a.id}">Fix in editor</a></td></tr>`).join('')}</table></div><div class="card mt"><h3>Sitemap and robots.txt</h3><p class="mut">Set the site URL in Website Settings first. Article URLs use hash routes (/#/post/slug), which search engines mostly ignore; see README for the static-pages upgrade path.</p><div class="row"><button class="btn" data-a="sitemap">Download sitemap.xml</button><button class="btn" data-a="robots">Download robots.txt</button></div></div>`},
+pages(id){const p=D.pages,k=p[id]?id:'about';V.innerHTML=`<h2>Pages</h2><div class="row">${Object.keys(p).map(x=>`<a class="btn ${x===k?'pri':''}" href="#/pages/${x}">${E(p[x].title)}</a>`).join('')}</div><form class="card mt" id="pf"><label>Title</label><input name="t" value="${E(p[k].title)}"><label>Content (HTML)</label><textarea name="c" rows="10">${E(p[k].content)}</textarea><div class="row mt"><button class="btn pri">Save page</button><a class="btn" target="_blank" rel="noopener" href="?preview=local#/page/${k}">Preview</a></div></form>`;$('#pf').onsubmit=e=>{e.preventDefault();p[k]={title:e.target.t.value,content:e.target.c.value};save();toast('Page saved')}},
+menu(){V.innerHTML=`<h2>Navigation menu</h2><form class="card" id="mn">${D.menu.map((m,i)=>`<div class="row mt"><input name="l${i}" value="${E(m.label)}" style="max-width:220px"><input name="h${i}" value="${E(m.href)}" style="max-width:300px"><button type="button" class="btn sm dng" data-a="rm-menu" data-id="${i}">Remove</button></div>`).join('')}<div class="row mt"><button type="button" class="btn" data-a="add-menu">Add link</button><button class="btn pri">Save menu</button></div></form>`;$('#mn').onsubmit=e=>{e.preventDefault();D.menu=D.menu.map((m,i)=>({...m,label:e.target['l'+i].value,href:e.target['h'+i].value}));save();toast('Menu saved')}},
+subs(){const s=RC.subs();V.innerHTML=`<div class="row sb"><h2>Newsletter subscribers</h2>${s.length?'<button class="btn" data-a="csv">Export CSV</button>':''}</div><p class="mut">Only addresses entered in this browser appear here. Connect an email service to collect real subscribers.</p><div class="card tw">${s.length?`<table><tr><th>Email</th><th>Date</th></tr>${s.map(x=>`<tr><td>${E(x.email)}</td><td>${fd(x.date)}</td></tr>`).join('')}</table>`:empty('No subscribers yet','Try the newsletter form on the blog preview.')}</div>`},
+settings(){const S=D.settings;V.innerHTML=`<h2>Website settings</h2><form class="card" id="sf"><label>Site name</label><input name="siteName" value="${E(S.siteName)}"><label>Site URL (used for canonical URLs and sitemap)</label><input name="url" value="${E(S.url)}"><label>Description</label><textarea name="description" rows="2">${E(S.description)}</textarea><div class="row mt"><button class="btn pri">Save settings</button><button type="button" class="btn" data-a="theme">Switch light/dark</button></div></form><div class="card mt"><h3>Data</h3><div class="row"><button class="btn" data-a="exp-pub">Export for deployment</button><button class="btn" data-a="exp-all">Export full backup</button><button class="btn" data-a="imp">Import JSON</button><button class="btn dng" data-a="reset">Reset to sample data</button></div></div>`;$('#sf').onsubmit=e=>{e.preventDefault();['siteName','url','description'].forEach(k=>S[k]=e.target[k].value.trim());save();toast('Settings saved')}},
+profile(){const S=D.settings;V.innerHTML=`<h2>User profile</h2><form class="card" id="pr"><label>Name</label><input name="author" value="${E(S.author)}"><label>Email</label><input name="email" type="email" value="${E(S.email)}"><label>Bio</label><textarea name="bio" rows="3">${E(S.bio)}</textarea><div class="mt"><button class="btn pri">Save profile</button></div></form>`;$('#pr').onsubmit=e=>{e.preventDefault();['author','email','bio'].forEach(k=>S[k]=e.target[k].value.trim());save();toast('Profile saved')}}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=b.dataset.id;
+if(a==='del'){const x=D.articles.find(y=>y.id===id);if(confirm(`Delete "${x.title}"? This cannot be undone.`)){D.articles=D.articles.filter(y=>y.id!==id);save();go();toast('Article deleted')}}
+else if(a==='exp-pub'){dl('articles.json',JSON.stringify(exportData(false),null,2));toast('Exported published and scheduled articles')}
+else if(a==='exp-all')dl('raad-backup.json',JSON.stringify(exportData(true),null,2));
+else if(a==='imp')$('#imp').click();
+else if(a==='copy')navigator.clipboard.writeText(id).then(()=>toast('URL copied'));
+else if(a==='rm-media'){D.media=D.media.filter(m=>m.url!==id);save();go()}
+else if(a==='rm-menu'){D.menu.splice(+id,1);save();go()}
+else if(a==='add-menu'){D.menu.push({label:'New link',href:'#/'});save();go()}
+else if(a==='theme')RC.toggle();
+else if(a==='csv')dl('subscribers.csv','email,date\n'+RC.subs().map(s=>s.email+','+s.date).join('\n'),'text/csv');
+else if(a==='reset'){if(confirm('Replace all local data with the sample data?')){localStorage.removeItem(RC.K);location.reload()}}
+else if(a==='sitemap'){const u=D.settings.url.replace(/\/$/,'');dl('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n<url><loc>${u}/</loc></url>\n${D.articles.filter(RC.live).map(x=>`<url><loc>${u}/#/post/${x.slug}</loc><lastmod>${(x.date||'').slice(0,10)}</lastmod></url>`).join('\n')}\n</urlset>`,'application/xml')}
+else if(a==='robots')dl('robots.txt',`User-agent: *\nAllow: /\nSitemap: ${D.settings.url.replace(/\/$/,'')}/sitemap.xml\n`,'text/plain')});
+$('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const j=JSON.parse(t),l=Array.isArray(j)?j:j.articles;if(!Array.isArray(l))throw 0;let n=0;l.forEach(x=>{if(!x.title)return;x={tags:[],status:'draft',category:D.cats[0],content:'',excerpt:'',...x};x.id=x.id||'a'+Date.now().toString(36)+n;x.slug=x.slug||RC.slug(x.title);const i=D.articles.findIndex(y=>y.id===x.id||y.slug===x.slug);i<0?D.articles.push(x):D.articles[i]=x;n++});if(j.settings)D.settings={...D.settings,...j.settings};if(j.menu)D.menu=j.menu;if(j.pages)D.pages=j.pages;save();go();toast(`Imported ${n} articles`)}catch(_){toast('That file is not a valid article JSON export')}e.target.value=''})};
+$('#th').onclick=()=>RC.toggle();$('#bg').onclick=()=>$('#side').classList.toggle('open');const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function fxA(){V.querySelectorAll('.card').forEach((c,i)=>c.style.animationDelay=Math.min(i,14)*55+'ms');if(RM)return;V.querySelectorAll('.stat b').forEach(el=>{const n=parseInt(el.textContent.replace(/,/g,''));if(isNaN(n))return;const t0=performance.now(),st=t=>{const p=Math.min(1,(t-t0)/1000);el.textContent=Math.round(n*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(st)};requestAnimationFrame(st)})}
+addEventListener('hashchange',go);go();
+})();
+</script>
+<script>const A=new URLSearchParams(location.search).has('admin');document.body.insertAdjacentHTML('afterbegin',A?"<div class=\"app\"><aside class=\"side\" id=\"side\"><a class=\"logo\" href=\"#/overview\"><span id=\"lg\"></span><span>RAAD.CLOUD<small>Blog Studio</small></span></a><nav id=\"nav\"></nav></aside><div><header class=\"top\"><button class=\"btn burger\" id=\"bg\">Menu</button><b id=\"ttl\"></b><span class=\"sp\"></span><a class=\"btn\" href=\"?preview=local\" target=\"_blank\" rel=\"noopener\">View blog</a><button class=\"btn\" id=\"th\">Theme</button></header><main class=\"main\" id=\"view\"></main></div></div><input type=\"file\" id=\"imp\" accept=\"application/json\" hidden>":"<a class=\"btn sm\" href=\"?admin=1\" style=\"position:fixed;left:10px;bottom:10px;z-index:9\">Open dashboard</a><header class=\"nav\"><div class=\"wrap\" id=\"nav\"></div></header><main id=\"app\"></main><footer><div class=\"wrap\" id=\"foot\"></div></footer>");(0,eval)(document.getElementById(A?'adminjs':'blogjs').textContent);</script></body></html>
